@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('./util');
 
-fs.readFile(path.join(__dirname, 'test-data-10-exp-5.list'),
+fs.readFile(path.join(__dirname, process.argv[2]),
     { encoding: 'utf-8' },
     (err, data) => {
         if (!err) {
@@ -39,19 +39,8 @@ function printQuestion2(nameInformation) {
 number of times the name appeared in the file in descending order.
 Don't worry about tie scores.\r\n`
     );
-    let topTenFirstNames = Object.keys(nameInformation.uniqueFirstName)
-        .map((_key) => {
-            return {
-                name: _key,
-                count: nameInformation.uniqueFirstName[_key]
-            };
-        })
-        .sort((a, b) => a.count - b.count)
-        .reverse()
-        .slice(0, 10)
-        .map((obj) => {
-            return `${obj.name} (${obj.count})`;
-        });
+    
+    let topTenFirstNames = util.getTop10FirstNames(nameInformation.uniqueFirstName);
 
     console.log(topTenFirstNames.join('\r\n'));
     console.groupEnd();
@@ -67,19 +56,7 @@ number of times the name appeared in the file in descending order.
 Don't worry about tie scores.\r\n`
     );
 
-    let topTenLastNames = Object.keys(nameInformation.uniqueLastName)
-        .map((_key) => {
-            return {
-                name: _key,
-                count: nameInformation.uniqueLastName[_key]
-            };
-        })
-        .sort((a, b) => a.count - b.count)
-        .reverse()
-        .slice(0, 10)
-        .map((obj) => {
-            return `${obj.name} (${obj.count})`;
-        });
+    let topTenLastNames = util.getTop10LastNames(nameInformation.uniqueLastName);
 
     console.log(topTenLastNames.join('\r\n'));
     console.groupEnd();
@@ -98,6 +75,6 @@ Patel, Fred        // Not unique.  We've seen "Fred"
 Patel, Betty       // Not unique.  We've seen "Patel"
 Chang, Sarah       // Unique!  We haven't seen "Sarah" or "Chang" yet. \r\n`
     );
-    
+
     console.log(nameInformation.first25TrueUniqueName.join('\r\n'));
 }
