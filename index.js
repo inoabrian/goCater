@@ -39,7 +39,7 @@ function printQuestion2(nameInformation) {
 number of times the name appeared in the file in descending order.
 Don't worry about tie scores.\r\n`
     );
-    
+
     let topTenFirstNames = util.getTop10FirstNames(nameInformation.uniqueFirstName);
 
     console.log(topTenFirstNames.join('\r\n'));
@@ -77,4 +77,10 @@ Chang, Sarah       // Unique!  We haven't seen "Sarah" or "Chang" yet. \r\n`
     );
 
     console.log(nameInformation.first25TrueUniqueName.join('\r\n'));
+
+    /*
+        For the second part of this question I would solve it by iterating over our unique first and last name lists and checking if there is an existing 
+        name in our first25TrueUniqueName, if it does not exist we can add it to our list of new generated names list.
+        Sadly I have run out of time to implement this solution.
+    */
 }
